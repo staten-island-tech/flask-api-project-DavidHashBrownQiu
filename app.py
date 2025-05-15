@@ -7,9 +7,9 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     # We ask the Pokémon API for the first 150 Pokémon.
-    response = requests.get("https://pokeapi.co/api/v2/pokemon?limit=150")
+    response = requests.get("https://raw.githubusercontent.com/fedeperin/potterapi/refs/heads/main/assets/data/basefiles/characters.js")
     data = response.json()
-    pokemon_list = data['results']
+    print(data)
     
     # We create a list to store details for each Pokémon.
     pokemons = []
