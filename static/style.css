@@ -73,25 +73,14 @@ body {
     color: #555;
     margin-top: 5px;
   }
-  
-  /* Pokémon detail page styling */
-  .pokemon-detail {
-    text-align: center;
+
+  .card-title {
+    color: #222;
+    font-weight: bold;
+    margin-bottom: 8px;
   }
   
-  .pokemon-detail img {
-    width: 200px;
-    height: auto;
-    margin-bottom: 20px;
+  .card-text {
+    font-style: italic;
   }
   
-  .pokemon-detail p {
-    font-size: 1.1em;
-  }
-  
-  /* Chart container styling */
-  .pokemon-stats {
-    width: 100%;
-    max-width: 600px;
-    margin: 40px auto;
-  }

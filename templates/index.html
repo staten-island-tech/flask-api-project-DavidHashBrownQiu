@@ -1,28 +1,24 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>First 150 Pokémon</title>
-    <!-- Link to your CSS stylesheet -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-  </head>
-  <body>
-    <div class="container">
-      <h1>First 150 Pokémon</h1>
-      <div class="card-container">
-        <!-- Loop through each Pokémon and wrap each card in a link -->
-        {% for pokemon in pokemons %}
-        <a href="{{ url_for('pokemon_detail', id=pokemon.id) }}" class="card-link">
-          <div class="card">
-            <img src="{{ pokemon.image }}" alt="{{ pokemon.name }}" />
-            <div class="card-body">
-              <h5 class="card-title">{{ pokemon.name }}</h5>
-              <p class="card-text">ID: {{ pokemon.id }}</p>
-            </div>
-          </div>
-        </a>
-        {% endfor %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Food Reviews</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Food Reviews</h1>
+    <div class="card-container">
+      {% for food in foods %}
+      <div class="card">
+        <img src="{{ food.image }}" alt="{{ food.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ food.name }}</h5>
+          <p class="card-text">By {{ food.company }}</p>
+        </div>
       </div>
+      {% endfor %}
     </div>
-  </body>
+  </div>
+</body>
 </html>
