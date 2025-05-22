@@ -13,20 +13,31 @@ def index():
     foods = [] #used to use the info needed
 
     for review in reviews:
+        id = review['product']
         product = review['product']
         manufacturer = review['manufacturer']
         videoCode = review['videoCode']
         imageUrl = f"https://img.youtube.com/vi/{videoCode}/0.jpg"  # note to self: this for loop helps w/ searching through revi4ews
         #to put info into the list for each product of the databawswe
         foods.append({
+            'id': id.lower(),
             'name': product.capitalize(),
             'company': manufacturer,
             'image': imageUrl
         })
 
-    return render_template("index.html", foods=foods)
+    return render_template("index.html", foods=foods)    
 
-@app.route("/review/")
+@app.route("/review/<id>")
+def reviews():
+    response = requests.get("https://raw.githubusercontent.com/andyklimczak/TheReportOfTheWeek-API/refs/heads/master/data/reports.json")
+    data = response.json()
+    reviews = data['reports']
+
+    rating = reviews['rating']
+
+    
+
 
 if __name__ == '__main__':
     app.run(debug=True)
