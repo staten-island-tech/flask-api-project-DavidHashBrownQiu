@@ -29,15 +29,30 @@ def index():
     return render_template("index.html", foods=foods)    
 
 @app.route("/review/<id>")
-def reviews():
+def reviews(id):
     response = requests.get("https://raw.githubusercontent.com/andyklimczak/TheReportOfTheWeek-API/refs/heads/master/data/reports.json")
     data = response.json()
     reviews = data['reports']
 
-    rating = reviews['rating']
+    review = next((r for r in reviews if r['product'].lower() == id), None)
 
-    
+    if not review:
+        return "Review not found", 404
 
+    # Extract fields you want to show in the detail page
+    product = review['product']
+    manufacturer = review['manufacturer']
+    rating = review.get('rating', 'No rating available')
+    videoCode = review['videoCode']
+    imageUrl = f"https://img.youtube.com/vi/{videoCode}/0.jpg"
+
+    # Pass all relevant info to template
+    return render_template("reviewS.html",
+                           product=product,
+                           manufacturer=manufacturer,
+                           rating=rating,
+                           image=imageUrl,
+                           videoCode=videoCode)
 
 if __name__ == '__main__':
     app.run(debug=True)

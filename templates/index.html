@@ -8,17 +8,45 @@
 <body>
   <div class="container">
     <h1>Food Reviews</h1>
+    <h2>From TheReportOfTheWeek</h2>
+
+    <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off" />
+
     <div class="card-container">
       {% for food in foods %}
-      <div class="card">
-        <img src="{{ food.image }}" alt="{{ food.name }}">
-        <div class="card-body">
-          <h5 class="card-title">{{ food.name }}</h5>
-          <p class="card-text">By {{ food.company }}</p>
+      <a href="{{ url_for('reviews', id=food.id) }}" class="card-link">
+        <div class="card">
+          <img src="{{ food.image }}" alt="{{ food.name }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ food.name }}</h5>
+            <p class="card-text">By {{ food.company }}</p>
+          </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
   </div>
 </body>
 </html>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const cardContainer = document.getElementById('cardContainer');
+  const cards = cardContainer.getElementsByClassName('card-link');
+
+  searchInput.addEventListener('input', function () {
+    const filter = this.value.toLowerCase();
+
+    for (let cardLink of cards) {
+      // Get the product name and manufacturer text
+      const title = cardLink.querySelector('.card-title').textContent.toLowerCase();
+      const company = cardLink.querySelector('.card-text').textContent.toLowerCase();
+
+      // Check if filter matches product name or manufacturer
+      if (title.includes(filter) || company.includes(filter)) {
+        cardLink.style.display = "";
+      } else {
+        cardLink.style.display = "none";
+      }
+    }
+  });
+</script>

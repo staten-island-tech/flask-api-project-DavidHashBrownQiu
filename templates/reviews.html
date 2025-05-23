@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ product }} - Review</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>{{ product }}</h1>
+    <p><strong>Manufacturer:</strong> {{ manufacturer }}</p>
+    <p><strong>Rating:</strong> {{ rating }}</p>
+    <img src="{{ image }}" alt="{{ product }}">
+    <div>
+      <h3>Review Video:</h3>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ videoCode }}" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+  </div>
+</body>
+</html>
