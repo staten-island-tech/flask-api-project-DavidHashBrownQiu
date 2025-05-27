@@ -47,7 +47,7 @@ def reviews(id):
     imageUrl = f"https://img.youtube.com/vi/{videoCode}/0.jpg"
 
     # Pass all relevant info to template
-    return render_template("reviewS.html",
+    return render_template("reviews.html",
                            product=product,
                            manufacturer=manufacturer,
                            rating=rating,
