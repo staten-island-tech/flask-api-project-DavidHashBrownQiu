@@ -39,14 +39,12 @@ def reviews(id):
     if not review:
         return "Review not found", 404
 
-    # Extract fields you want to show in the detail page
     product = review['product']
     manufacturer = review['manufacturer']
     rating = review.get('rating', 'No rating available')
     videoCode = review['videoCode']
     imageUrl = f"https://img.youtube.com/vi/{videoCode}/0.jpg"
 
-    # Pass all relevant info to template
     return render_template("reviews.html",
                            product=product,
                            manufacturer=manufacturer,
