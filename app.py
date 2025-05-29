@@ -37,7 +37,7 @@ def reviews(id):
     review = next((r for r in reviews if r['product'].lower() == id), None)
 
     if not review:
-        return "Review not found", 404
+        return render_template("error.html", message="Review not found.")
 
     product = review['product']
     manufacturer = review['manufacturer']
