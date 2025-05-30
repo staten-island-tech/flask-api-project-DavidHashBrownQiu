@@ -3,22 +3,22 @@ import requests
 
 app = Flask(__name__)
 
-# Route for the home page
 @app.route("/")
 def index():
     response = requests.get("https://raw.githubusercontent.com/andyklimczak/TheReportOfTheWeek-API/refs/heads/master/data/reports.json")
     data = response.json()
     reviews = data['reports']
 
-    foods = [] #used to use the info needed
+    foods = []
+    manufacturers = set()
 
     for review in reviews:
         id = review['product']
         product = review['product']
-        manufacturer = review['manufacturer']
+        manufacturer = review.get('manufacturer', '').strip()
         videoCode = review['videoCode']
-        imageUrl = f"https://img.youtube.com/vi/{videoCode}/0.jpg"  # note to self: this for loop helps w/ searching through revi4ews
-        #to put info into the list for each product of the databawswe
+        imageUrl = f"https://img.youtube.com/vi/{videoCode}/0.jpg"
+
         foods.append({
             'id': id.lower(),
             'name': product.capitalize(),
@@ -26,7 +26,10 @@ def index():
             'image': imageUrl
         })
 
-    return render_template("index.html", foods=foods)    
+        if manufacturer:  # make sure it's not empty
+            manufacturers.add(manufacturer)
+
+    return render_template("index.html", foods=foods, manufacturers=sorted(manufacturers))   
 
 @app.route("/review/<id>")
 def reviews(id):
@@ -51,6 +54,28 @@ def reviews(id):
                            rating=rating,
                            image=imageUrl,
                            videoCode=videoCode)
+
+@app.route("/manufacturer/<name>")
+def filter_by_manufacturer(name):
+    response = requests.get("https://raw.githubusercontent.com/andyklimczak/TheReportOfTheWeek-API/refs/heads/master/data/reports.json")
+    data = response.json()
+    reviews = data['reports']
+
+    filtered_foods = []
+    for review in reviews:
+        if review['manufacturer'].lower() == name.lower():
+            filtered_foods.append({
+                'id': review['product'].lower(),
+                'name': review['product'].capitalize(),
+                'company': review['manufacturer'],
+                'image': f"https://img.youtube.com/vi/{review['videoCode']}/0.jpg"
+            })
+
+    if not filtered_foods:
+        return render_template("error.html", message=f"No reviews found for {name}.")
+
+    return render_template("index.html", foods=filtered_foods)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

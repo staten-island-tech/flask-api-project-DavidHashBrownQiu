@@ -6,9 +6,24 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+
+  
   <div class="container">
     <h1>Food Reviews</h1>
     <h2>From TheReportOfTheWeek</h2>
+
+  
+  <div class="container">
+    <form action="" method="get">
+      <label for="manufacturer">Filter by Manufacturer:</label>
+      <select id="manufacturer" onchange="if (this.value) window.location.href=this.value">
+        <option value="">-- Choose a Manufacturer --</option>
+        {% for manufacturer in manufacturers %}
+          <option value="{{ url_for('filter_by_manufacturer', name=manufacturer) }}">{{ manufacturer }}</option>
+        {% endfor %}
+      </select>
+    </form>
+    <br>
 
     <div class="card-container">
       {% for food in foods %}
@@ -22,6 +37,9 @@
         </div>
         {% endfor %}
       </div>
+    <a href="{{ url_for('index') }}">Return to Homepage</a>
   </div>
+
+  
 </body>
 </html>

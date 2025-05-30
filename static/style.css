@@ -1,7 +1,11 @@
 /* General page styling */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f2f5;
+  background-image: url('/static/burger.jpg'); 
+  background-size: cover;
+  background-repeat: repeat;
+  background-size: auto 300px;
+  background-position: top center;
   margin: 0;
   padding: 0;
   color: #333;
@@ -14,7 +18,7 @@ body {
   max-width: 1100px;
   margin: 40px auto;
   padding: 20px 30px;
-  background-color: #fff;
+  background-color: #ffe293;
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 }
