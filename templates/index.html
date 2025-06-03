@@ -14,6 +14,7 @@
 
   
   <div class="container">
+    {% if show_filter %}
     <form action="" method="get">
       <label for="manufacturer">Filter by Manufacturer:</label>
       <select id="manufacturer" onchange="if (this.value) window.location.href=this.value">
@@ -24,6 +25,8 @@
       </select>
     </form>
     <br>
+  {% endif %}
+  
 
     <div class="card-container">
       {% for food in foods %}

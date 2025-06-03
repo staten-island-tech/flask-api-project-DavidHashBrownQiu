@@ -29,7 +29,7 @@ def index():
         if manufacturer:  # make sure it's not empty
             manufacturers.add(manufacturer)
 
-    return render_template("index.html", foods=foods, manufacturers=sorted(manufacturers))   
+    return render_template("index.html", foods=foods, manufacturers=sorted(manufacturers), show_filter=True)
 
 @app.route("/review/<id>")
 def reviews(id):
@@ -74,7 +74,7 @@ def filter_by_manufacturer(name):
     if not filtered_foods:
         return render_template("error.html", message=f"No reviews found for {name}.")
 
-    return render_template("index.html", foods=filtered_foods)
+    return render_template("index.html", foods=filtered_foods, show_filter=False)
 
 
 if __name__ == '__main__':
